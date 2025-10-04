@@ -1,33 +1,29 @@
-import { useState } from 'react'
-import './App.css'
+import { motion } from "framer-motion";
+import Header from "./components/Header";
+import HomeBottom from "./components/HomeBottom";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <p> Hi</p>
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <p> just a start ! </p>
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="min-h-screen bg-zinc-950 text-white">
+      {/* Header fades in slowly */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2}} // fade in over 2 seconds
+      >
+        <Header />
+      </motion.div>
+
+      {/* HomeBottom slides in from the left */}
+      <motion.div
+        initial={{ x: -200, opacity: 0 }} // start off-screen to the left
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.3 }} // slide in after header fade
+      >
+        <HomeBottom />
+      </motion.div>
+    </div>
+  );
 }
 
-export default App
+export default App;
