@@ -1,0 +1,12 @@
+{
+  "name": "tracker-extension",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.267",
+    "typescript": "^5.5.0"
+  }
+}
