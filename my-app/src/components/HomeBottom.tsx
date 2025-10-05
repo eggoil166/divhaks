@@ -22,44 +22,25 @@ export default function HomeBottom() {
                 }}
               ></span>
               <span className="relative z-10 font-bold text-white">
-                LionProductivity
+                Priorikitty
               </span>
             </span>
           </h1>
 
           <p className="flex-wrap mt-8 text-xl font-medium text-[var(--secondary)]">
-            lol this is a pitch , <span className="font-bold text-[var(--accent)]">LionProductivity</span>{" "}
-            proactively helps you stay productive!
+            Be focused. Be rewarded. Prioritize playfully with <span className="font-bold text-[var(--accent)]">Priorikitty!</span>
           </p>
 
           <div className="mt-10 flex items-center gap-x-6 gap-y-4">
-            <button
-              onClick={() => (window.location.href = "/dashboard")}
-              className="w-40 h-11 text-white px-4 py-2.5 rounded-md transition-all duration-300 flex items-center justify-center gap-2 text-lg"
+            <p
+              className="text-white px-6 py-3 rounded-md transition-all duration-300 flex items-center justify-center gap-2 text-lg"
               style={{
-                background: "linear-gradient(to right, var(--primary), var(--secondary), var(--accent))",
+                background:
+                  "linear-gradient(to right, var(--primary), var(--secondary), var(--accent))",
               }}
             >
-              Dashboard
-            </button>
-            <button
-              onClick={() => (window.location.href = "/home")}
-              className="w-40 h-11 text-white px-4 py-2.5 rounded-md transition-all duration-300 flex items-center justify-center gap-2 text-lg"
-              style={{
-                background: "linear-gradient(to right, var(--primary), var(--secondary), var(--accent))",
-              }}
-            >
-               Schedule
-            </button>
-            <button
-              onClick={() => (window.location.href = "/home")}
-              className="w-40 h-11 text-white px-4 py-2.5 rounded-md transition-all duration-300 flex items-center justify-center gap-2 text-lg"
-              style={{
-                background: "linear-gradient(to right, var(--primary), var(--secondary), var(--accent))",
-              }}
-            >
-               Store
-            </button>
+              Click a button above to get started!
+            </p>
           </div>
         </div>
 
