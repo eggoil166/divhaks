@@ -5,8 +5,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
 const path_1 = __importDefault(require("path"));
-let mainWindow;
-let characterWindow;
+let mainWindow = null;
+let characterWindow = null;
+/** Wait-and-retry helper so Electron doesn’t open before Vite is ready */
+async function loadReactDev(win, url) {
+    for (let i = 0; i < 20; i++) {
+        try {
+            await win.loadURL(url);
+            console.log(" Loaded React dev server at", url);
+            return;
+        }
+        catch {
+            console.log("Waiting for Vite dev server...");
+            await new Promise((r) => setTimeout(r, 500));
+        }
+    }
+    console.error("Could not reach React dev server:", url);
+}
 function createMainWindow() {
     mainWindow = new electron_1.BrowserWindow({
         width: 1200,
@@ -15,12 +30,16 @@ function createMainWindow() {
             preload: path_1.default.join(__dirname, "preload.js"),
         },
     });
-    // Load React frontend port??
     if (process.env.NODE_ENV === "development") {
-        mainWindow.loadURL("http://localhost:5173");
+        // match your Vite dev port
+        const devServerUrl = "http://localhost:3000";
+        loadReactDev(mainWindow, devServerUrl);
+        mainWindow.webContents.openDevTools({ mode: "detach" }); // optional
     }
     else {
-        mainWindow.loadFile(path_1.default.join(__dirname, "../dist/index.html"));
+        // point to built Vite output (dist folder at project root)
+        const prodIndex = path_1.default.join(__dirname, "../../dist/index.html");
+        mainWindow.loadFile(prodIndex);
     }
 }
 function createCharacterWindow() {
@@ -33,9 +52,7 @@ function createCharacterWindow() {
         resizable: false,
         hasShadow: false,
     });
-    //character.html path
     characterWindow.loadFile(path_1.default.join(__dirname, "character.html"));
-    // false = clickable
     characterWindow.setSkipTaskbar(true);
     characterWindow.setIgnoreMouseEvents(false);
 }
