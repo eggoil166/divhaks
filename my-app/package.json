@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:react\" \"npm run dev:electron\"",
     "dev:react": "vite --port 3000",
-    "dev:electron": "npm run build:electron && cross-env NODE_ENV=development electron app/electron/dist-electron/main.js",
+    "dev:electron": "npm run build:electron && cross-env NODE_ENV=development electron app/electron/dist-electron/main.cjs",
     "build": "npm run build:react && npm run build:electron",
     "build:react": "react scripts build",
     "build:electron": "tsc -p app/electron/tsconfig.json"
