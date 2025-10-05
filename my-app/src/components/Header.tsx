@@ -1,7 +1,13 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { LoginButton } from './LoginButton';
+import { LogoutButton } from './LogoutButton';
+import { Profile } from './Profile';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Header: React.FC = () => {
+  const { isAuthenticated } = useAuth0();
+  console.log(isAuthenticated);
   const navigate = useNavigate();
 
   return (
@@ -16,6 +22,7 @@ const Header: React.FC = () => {
 
         {/* Navigation Buttons */}
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+          
           <button
             onClick={() => navigate("/")}
             className="bg-[var(--primary)] hover:bg-[var(--accent)] text-white px-4 py-2 rounded-md transition-all transform hover:scale-105 active:scale-95 font-semibold text-sm"
@@ -40,6 +47,8 @@ const Header: React.FC = () => {
           >
             Store
           </button>
+          { isAuthenticated ? (<LogoutButton />) : (<LoginButton />) }
+          { isAuthenticated && <Profile />}
         </div>
       </div>
     </header>

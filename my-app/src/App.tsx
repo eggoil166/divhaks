@@ -2,8 +2,6 @@ import { motion } from "framer-motion";
 import Header from "./components/Header";
 import HomeBottom from "./components/HomeBottom";
 import { Auth0Provider } from '@auth0/auth0-react';
-import { LoginButton } from './components/LoginButton';
-import { LogoutButton } from './components/LogoutButton';
 
 const domain = import.meta.env.VITE_AUTH0_DOMAIN;
 const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
@@ -27,8 +25,7 @@ function App() {
         transition={{ duration: 2}} // fade in over 2 seconds
       >
         <Header />
-        <LoginButton />
-        <LogoutButton />
+
       </motion.div>
 
       {/* HomeBottom slides in from the left */}
