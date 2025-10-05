@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, screen } from "electron";
 import path from "path";
 
 let mainWindow: BrowserWindow | null;
@@ -13,41 +13,50 @@ function createMainWindow() {
     },
   });
 
-  // Load React frontend port??
   if (process.env.NODE_ENV === "development") {
-    mainWindow.loadURL("http://localhost:5173");
+    mainWindow.loadURL("http://localhost:3000");
   } else {
     mainWindow.loadFile(path.join(__dirname, "../dist/index.html"));
   }
 }
 
 function createCharacterWindow() {
+  const { width, height, x, y } = screen.getPrimaryDisplay().bounds;
+
   characterWindow = new BrowserWindow({
-    width: 200,
-    height: 200,
+    x,
+    y,
+    width,
+    height,
     transparent: true,
     frame: false,
     alwaysOnTop: true,
-    resizable: false,
     hasShadow: false,
+    resizable: false,
+    focusable: false, 
+    fullscreen: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
   });
 
-  //character.html path
+  characterWindow.setBounds({ x, y, width, height });
+  characterWindow.setAlwaysOnTop(true, "screen-saver");
+
+  characterWindow.setIgnoreMouseEvents(true, { forward: true });
   characterWindow.loadFile(path.join(__dirname, "character.html"));
-  // false = clickable
-  characterWindow.setSkipTaskbar(true);
-  characterWindow.setIgnoreMouseEvents(false); 
 }
 
 app.whenReady().then(() => {
   createMainWindow();
-  createCharacterWindow();
+  setTimeout(createCharacterWindow, 3000);
+
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) createMainWindow();
+  });
 });
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
-});
-
-app.on("activate", () => {
-  if (mainWindow === null) createMainWindow();
 });

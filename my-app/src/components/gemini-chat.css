@@ -1,0 +1,10 @@
+.gc-wrap { border: 1px solid #e5e7eb; border-radius: 12px; width: 100%; max-width: 680px; background: #fff; display: flex; flex-direction: column; }
+.gc-header { padding: 12px 16px; font-weight: 600; border-bottom: 1px solid #eee; }
+.gc-body { padding: 12px; height: 360px; overflow: auto; background: #fafafa; display: flex; flex-direction: column; gap: 8px; }
+.gc-msg { max-width: 90%; padding: 10px 12px; border-radius: 10px; line-height: 1.4; white-space: pre-wrap; }
+.gc-msg.user { align-self: flex-end; background: #e0f2fe; }
+.gc-msg.ai { align-self: flex-start; background: #e5e7eb; }
+.gc-input { display: flex; gap: 8px; padding: 12px; border-top: 1px solid #eee; }
+.gc-input input { flex: 1; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; }
+.gc-input button { padding: 10px 16px; border: 0; border-radius: 8px; background: black; color: white; cursor: pointer; }
+.gc-input button:disabled { opacity: 0.6; cursor: not-allowed; }

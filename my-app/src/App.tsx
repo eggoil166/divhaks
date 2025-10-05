@@ -1,33 +1,64 @@
-import { useState } from 'react'
-import './App.css'
+// src/App.tsx
+import { motion } from "framer-motion";
+import { Routes, Route } from "react-router-dom";
+import { Auth0Provider } from "@auth0/auth0-react";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Header from "./components/Header";
+import HomeBottom from "./components/HomeBottom";
+import Dashboard from "./components/Dashboard";
+import Store from "./components/Store";
+import Schedule from "./components/Schedule";
+import { LoginButton } from "./components/LoginButton";
+import { LogoutButton } from "./components/LogoutButton";
 
+const domain = import.meta.env.VITE_AUTH0_DOMAIN as string;
+const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID as string;
+const audience = import.meta.env.VITE_AUTH0_AUDIENCE as string;
+
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <p> Hi</p>
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <p> just a start ! </p>
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Auth0Provider
+      domain={domain}
+      clientId={clientId}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+        audience,
+      }}
+    >
+      {/* Use your palette */}
+      <div className="min-h-screen bg-[var(--background)] text-[var(--text)]">
+        {/* Header fades in */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+        >
+          <Header />
+          <div className="px-6 lg:px-10 pt-2 flex gap-3">
+            <LoginButton />
+            <LogoutButton />
+          </div>
+        </motion.div>
 
-export default App
+        {/* Routes */}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <motion.div
+                initial={{ x: -200, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 1.2, delay: 0.3 }}
+              >
+                <HomeBottom />
+              </motion.div>
+            }
+          />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/store" element={<Store />} />
+           <Route path="/schedule" element={<Schedule />} />
+        </Routes>
+      </div>
+    </Auth0Provider>
+  );
+}
