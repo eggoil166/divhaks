@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.5.0",
-    "@tailwindcss/vite": "^4.1.14",
     "@google/generative-ai": "^0.24.1",
+    "@tailwindcss/vite": "^4.1.14",
     "dotenv": "^17.2.3",
     "framer-motion": "^12.23.22",
     "once": "^1.4.0",
@@ -44,6 +44,7 @@
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "@tailwindcss/vite": "^4.1.14",
+    "@types/chrome": "^0.1.22",
     "@types/node": "^24.6.2",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
