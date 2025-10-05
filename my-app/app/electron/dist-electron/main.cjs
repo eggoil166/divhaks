@@ -39,7 +39,7 @@ function createMainWindow() {
   if (process.env.NODE_ENV === "development") {
     loadReactDev(mainWindow, devServerUrl);
   } else {
-    const prodIndex = path_1.default.join(__dirname, "../../dist/index.html");
+    const prodIndex = path_1.default.join(__dirname, "../../dist-electron/index.html");
     mainWindow.loadFile(prodIndex);
   }
 
