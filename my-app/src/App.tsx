@@ -6,6 +6,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import Header from "./components/Header";
 import HomeBottom from "./components/HomeBottom";
 import Dashboard from "./components/Dashboard";
+import Store from "./components/Store";
 import { LoginButton } from "./components/LoginButton";
 import { LogoutButton } from "./components/LogoutButton";
 
@@ -53,9 +54,7 @@ export default function App() {
             }
           />
           <Route path="/dashboard" element={<Dashboard />} />
-          {/* Later:
-          <Route path="/schedule" element={<Schedule />} />
-          <Route path="/store" element={<Store />} /> */}
+          <Route path="/store" element={<Store />} />
         </Routes>
       </div>
     </Auth0Provider>

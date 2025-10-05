@@ -16,7 +16,7 @@ const Header: React.FC = () => {
         {/* Logo / Title */}
         <Link to="/" className="mb-4 sm:mb-0">
           <h1 className="text-3xl font-bold text-[var(--primary)] hover:text-[var(--accent)] transition-colors cursor-pointer">
-            LionProductivity
+            Priorikitty
           </h1>
         </Link>
 
@@ -42,7 +42,7 @@ const Header: React.FC = () => {
             Schedule
           </button>
           <button
-            onClick={() => navigate("/call")}
+            onClick={() => navigate("/store")}
             className="bg-[var(--secondary)] hover:bg-[var(--accent)] text-white px-4 py-2 rounded-md transition-all transform hover:scale-105 active:scale-95 font-semibold text-sm"
           >
             Store
