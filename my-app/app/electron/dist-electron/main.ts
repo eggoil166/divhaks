@@ -21,34 +21,35 @@ function createMainWindow() {
 }
 
 function createCharacterWindow() {
-  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+  const { width, height, x, y } = screen.getPrimaryDisplay().bounds;
 
   characterWindow = new BrowserWindow({
-    width: 200,
-    height: 200,
+    x,
+    y,
+    width,
+    height,
     transparent: true,
     frame: false,
     alwaysOnTop: true,
-    resizable: false,
     hasShadow: false,
-    focusable: false,
-    x: width - 250,
-    y: height - 250,
+    resizable: false,
+    focusable: false, 
+    fullscreen: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
 
+  characterWindow.setBounds({ x, y, width, height });
+  characterWindow.setAlwaysOnTop(true, "screen-saver");
+
+  characterWindow.setIgnoreMouseEvents(true, { forward: true });
   characterWindow.loadFile(path.join(__dirname, "character.html"));
-  // Click-through optional:
-  // characterWindow.setIgnoreMouseEvents(true, { forward: true });
 }
 
 app.whenReady().then(() => {
   createMainWindow();
-
-  // Delay slightly so React UI loads first, then cat appears
   setTimeout(createCharacterWindow, 3000);
 
   app.on("activate", () => {

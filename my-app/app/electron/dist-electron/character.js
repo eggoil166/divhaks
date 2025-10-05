@@ -1,57 +1,61 @@
-const char = document.getElementById("character");
+const cat = document.getElementById("cat");
 
-let x = 70, y = 50;
-let dx = 2.0, dy = 1.7;
+// start in center of screen
+let x = window.innerWidth / 2 - 75;
+let y = window.innerHeight / 2 - 75;
+let targetX = x;
+let targetY = y;
+let dragging = false;
+let offsetX = 0;
+let offsetY = 0;
 
-function move() {
-  x += dx;
-  y += dy;
-  if (x < 0 || x > window.innerWidth + 200) dx = -dx;
-  if (y < 0 || y > window.innerHeight + 172) dy = -dy;
-  char.style.left = x + "px";
-  char.style.top = y + "px";
-  requestAnimationFrame(move);
-}
-move();
+const ease = 0.08; 
 
-//function follow the mouse --> default, every min go to random action: spin or hop
-//document.addEventListener("mousemove", e => {
-//  x = e.clientX - 100;
-//  y = e.clientY - 86;
-//  char.style.left = x + "px";
-//  char.style.top = y + "px";
-//});
 
-//function spin in place
-//setInterval(() => {
-//  char.style.transform = `rotate(${(Date.now() / 10) % 360}deg)`;
-//}, 16);
+document.addEventListener("mousemove", e => {
+  targetX = e.clientX - 75;
+  targetY = e.clientY - 75;
+});
 
-//hop up and down across the screen and go back the other way for x rand seconds
-
-//run off screen and come back on other side after a few seconds
-
-// Optional drag? can it drag the app window itself? at a set time of day?
-// or can it drag a chrome browser window?
-let dragging = false, offsetX, offsetY;
-
-char.addEventListener("mousedown", e => {
+// drag cat
+cat.addEventListener("mousedown", e => {
   dragging = true;
   offsetX = e.clientX - x;
   offsetY = e.clientY - y;
-  char.style.cursor = "grabbing";
+  cat.style.cursor = "grabbing";
 });
 
 window.addEventListener("mouseup", () => {
   dragging = false;
-  char.style.cursor = "grab";
+  cat.style.cursor = "grab";
 });
 
 window.addEventListener("mousemove", e => {
   if (dragging) {
     x = e.clientX - offsetX;
     y = e.clientY - offsetY;
-    char.style.left = x + "px";
-    char.style.top = y + "px";
+    targetX = x; 
+    targetY = y;
   }
 });
+
+function animate() {
+  if (!dragging) {
+    x += (targetX - x) * ease;
+    y += (targetY - y) * ease;
+  }
+
+  // flip cat
+  if (targetX - x < 0) {
+    cat.style.transform = "translate(-50%, -50%) scaleX(-1)";
+  } else {
+    cat.style.transform = "translate(-50%, -50%) scaleX(1)";
+  }
+
+  cat.style.left = `${x}px`;
+  cat.style.top = `${y}px`;
+
+  requestAnimationFrame(animate);
+}
+
+animate();
