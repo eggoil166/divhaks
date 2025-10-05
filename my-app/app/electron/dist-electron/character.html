@@ -9,64 +9,100 @@
         padding: 0;
         background: transparent;
         overflow: hidden;
+        height: 100%;
+        width: 100%;
       }
 
       #character {
         position: absolute;
         bottom: 0;
-        left: -200px; /* start off screen */
+        left: -200px;
         width: 150px;
-        height: 150px;
-        background-image: url("./orange-cat.gif"); 
-        background-size: contain;
-        background-repeat: no-repeat;
-        transition: transform 0.2s linear;
-        pointer-events: none; 
+        height: auto;
+        pointer-events: none;
+        user-select: none;
+        transition: transform 0.15s linear;
       }
     </style>
   </head>
   <body>
-    <div id="character"></div>
+    <img id="character" src="./orange-cat.gif" alt="cat" />
 
     <script>
       const char = document.getElementById("character");
       const screenWidth = window.innerWidth;
-      let x = -200;
-      let speed = 2 + Math.random() * 2;
-      let direction = 1; // 1 = right, -1 = left
-      let followMouse = false;
+      const screenHeight = window.innerHeight;
 
-      // Randomly trigger mouse-following
+      let x = -200;
+      let y = 0;
+      let direction = -1;
+      let speed = 2 + Math.random() * 2;
+      let followMouse = false;
+      let returningToBottom = false;
+      let mouseX = screenWidth / 2;
+      let mouseY = screenHeight / 2;
+
+      // update mouse position
+      window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      // occasionally chase the mouse
       setInterval(() => {
-        followMouse = Math.random() < 0.2; 
-        if (followMouse) {
-          console.log("🐾 Following mouse for a bit!");
+        if (!followMouse && !returningToBottom && Math.random() < 0.50) {
+          followMouse = true;
+          console.log("🐾 Following mouse!");
           setTimeout(() => {
             followMouse = false;
+            returningToBottom = true;
           }, 4000 + Math.random() * 4000);
         }
       }, 10000);
 
-      let mouseX = screenWidth / 2;
-      window.addEventListener("mousemove", (e) => (mouseX = e.clientX));
-
       function moveCharacter() {
         if (followMouse) {
-          const dx = mouseX - (x + 75);
-          x += dx * 0.05; 
-        } else {
-          x += speed * direction;
+          // move toward mouse freely
+          const dx = mouseX - (x + char.width / 2);
+          const dy = screenHeight - mouseY - y - char.height / 2;
+          x += dx * 0.05;
+          y += dy * 0.05;
+
+          // flip facing direction
+          direction = dx >= 0 ? 1 : -1;
+          char.style.transform = `scaleX(${direction})`;
+        } 
+        else if (returningToBottom) {
+          // smoothly descend back to ground
+          const dy = 0 - y;
+          y += dy * 0.1;
+          if (Math.abs(dy) < 1) {
+            y = 0;
+            returningToBottom = false;
+          }
+        } 
+        else {
+          // normal walking along bottom
+          y = 0;
+          x += -speed * direction;
+
+          // flip direction at edges
           if (x > screenWidth + 200) {
             direction = 1;
-            char.style.transform = "scaleX(-1)";
           } else if (x < -200) {
-            direction = 1;
-            char.style.transform = "scaleX(1)";
+            direction = -1;
           }
+
+          char.style.transform = `scaleX(${direction})`;
         }
+
+        // apply position
         char.style.left = `${x}px`;
+        char.style.bottom = `${y}px`;
+
         requestAnimationFrame(moveCharacter);
       }
+
       moveCharacter();
     </script>
   </body>
