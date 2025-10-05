@@ -9,6 +9,7 @@ export interface ActivityLog {
 export interface ReminderMessage {
   action: "showReminder";
   text?: string;
+  imgUrl: string;
 }
 
 export interface CloseTabMessage {

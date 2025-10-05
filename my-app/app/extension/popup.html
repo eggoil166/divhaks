@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 300px;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    h1 {
+      font-size: 18px;
+      margin: 0 0 15px 0;
+      text-align: center;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    #reminder {
+      background: #ff6b6b;
+      color: white;
+    }
+    #close {
+      background: #4ecdc4;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎯 Lock In Mode</h1>
+  <button id="reminder">Show Reminder</button>
+  <button id="close">Close Distracting Tab</button>
+  <script src="dist/popup.js"></script>
+</body>
+</html>
