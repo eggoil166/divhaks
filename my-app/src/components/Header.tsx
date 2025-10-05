@@ -36,7 +36,7 @@ const Header: React.FC = () => {
             Dashboard
           </button>
           <button
-            onClick={() => navigate("/call")}
+            onClick={() => navigate("/schedule")}
             className="bg-[var(--secondary)] hover:bg-[var(--accent)] text-white px-4 py-2 rounded-md transition-all transform hover:scale-105 active:scale-95 font-semibold text-sm"
           >
             Schedule

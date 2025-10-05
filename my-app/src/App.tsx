@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import HomeBottom from "./components/HomeBottom";
 import Dashboard from "./components/Dashboard";
 import Store from "./components/Store";
+import Schedule from "./components/Schedule";
 import { LoginButton } from "./components/LoginButton";
 import { LogoutButton } from "./components/LogoutButton";
 
@@ -55,6 +56,7 @@ export default function App() {
           />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/store" element={<Store />} />
+           <Route path="/schedule" element={<Schedule />} />
         </Routes>
       </div>
     </Auth0Provider>
