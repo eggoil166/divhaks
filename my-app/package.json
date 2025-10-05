@@ -6,11 +6,11 @@
   "main": "electron/main.ts",
   "scripts": {
     "dev": "concurrently \"npm run dev:react\" \"npm run dev:electron\"",
-    "dev:react": "react-scripts start",
-    "dev:electron": "cross-env NODE_ENV=development ts-node electron/main.ts",
+    "dev:react": "vite --port 3000",
+    "dev:electron": "npm run build:electron && cross-env NODE_ENV=development electron app/electron/dist-electron/main.js",
     "build": "npm run build:react && npm run build:electron",
     "build:react": "react scripts build",
-    "build:electron": "tsc -p electron/tsconfig.json"
+    "build:electron": "tsc -p app/electron/tsconfig.json"
   },
   "build": {
     "appId": "com.yourcompany.productivityapp",
@@ -31,6 +31,8 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "dotenv": "^17.2.3",
+    "@auth0/auth0-react": "^2.5.0",
+    "@tailwindcss/vite": "^4.1.14",
     "framer-motion": "^12.23.22",
     "once": "^1.4.0",
     "path": "^0.12.7",
@@ -47,6 +49,7 @@
     "@vitejs/plugin-react": "^5.0.4",
     "autoprefixer": "^10.4.21",
     "babel-plugin-react-compiler": "^19.1.0-rc.3",
+    "cross-env": "^10.1.0",
     "electron": "^38.2.1",
     "electron-builder": "^26.0.12",
     "eslint": "^9.36.0",
