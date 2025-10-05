@@ -1,29 +1,14 @@
-import "dotenv/config";
-import readline from "readline";
-import { askGemini } from "./opikapi";
+// src/test-gemini.ts
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY!;
+if (!API_KEY) throw new Error("Missing VITE_GEMINI_API_KEY");
 
-console.log("Chat with Gemini! Type 'exit' to quit.");
+const genAI = new GoogleGenerativeAI(API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-const chat = () => {
-  rl.question("> ", async (input) => {
-    if (input.toLowerCase() === "exit") {
-      rl.close();
-      return;
-    }
-
-    try {
-      await askGemini(input);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-
-    chat();
-  });
-};
-
-chat();
+export async function askGemini(prompt: string): Promise<string> {
+  const res = await model.generateContent(prompt);
+  // @ts-ignore: SDK'nin .text() yardımcı fonksiyonu
+  return res?.response?.text?.() ?? "(no response)";
+}

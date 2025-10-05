@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
+import GeminiChat from "./GeminiChat";
 
 const demo = {
   screenTimeMinutes: 142,
@@ -32,7 +33,7 @@ export default function Dashboard() {
           src="/baby-lion.webp"
           alt="Lion assistant"
           className="w-20 h-20 object-contain absolute animate-lion float-shadow opacity-90"
-          style={{ left: "2%", bottom: "6%" }}
+          style={{ left: "50%", top: "10%" }}
         />
       </div>
 
@@ -132,13 +133,10 @@ export default function Dashboard() {
           </Card>
 
           <Card className="col-span-12">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">AI Summary (Gemini)</h3>
-              <span className="text-xs px-2 py-1 rounded-full bg-[var(--secondary)]/30 text-[var(--primary)]">coming soon</span>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-lg font-semibold">Gemini Chat</h3>
             </div>
-            <p className="mt-2 text-sm opacity-80">
-              Your AI will generate a short daily brief here (focus score, wins, suggested next tasks).
-            </p>
+            <GeminiChat/>
           </Card>
         </section>
       </div>
