@@ -33,7 +33,7 @@ export default function Dashboard() {
           src="/baby-lion.webp"
           alt="Lion assistant"
           className="w-20 h-20 object-contain absolute animate-lion float-shadow opacity-90"
-          style={{ left: "50%", top: "10%" }}
+          style={{ left: "2%", bottom: "6%" }}
         />
       </div>
 
