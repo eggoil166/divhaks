@@ -6,7 +6,7 @@
   "main": "electron/main.ts",
   "scripts": {
     "dev": "concurrently \"npm run dev:react\" \"npm run dev:electron\"",
-    "dev:react": "react-scripts start",
+    "dev:react": "vite",
     "dev:electron": "cross-env NODE_ENV=development ts-node electron/main.ts",
     "build": "npm run build:react && npm run build:electron",
     "build:react": "react scripts build",
