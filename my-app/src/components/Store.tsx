@@ -118,7 +118,7 @@ export default function Store() {
   const successMessages = [
     "Great choice! Your kitty is so happy with the treat! 🐾",
     "The lion loved that snack. You’re doing awesome! 🦁",
-    "Another reward unlocked — keep going, you’re crushing it! 🌟",
+    "Another reward unlocked. Keep going, you’re crushing it! 🌟",
     "Small wins lead to big victories. Proud of you! 💪",
     "Your kitty is purring with joy. Stay motivated! 😺",
   ];
@@ -192,7 +192,7 @@ export default function Store() {
                   {item.name}
                 </div>
                 <img
-                  ref={(el) => (imgRefs.current[index] = el)}
+                  ref={(el) => { imgRefs.current[index] = el; }}
                   src={item.source}
                   alt={item.name}
                   className="w-24 h-24 object-contain mb-4"
