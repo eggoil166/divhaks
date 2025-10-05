@@ -10,6 +10,21 @@ const demo = {
   tasksWeek: 28,
 };
 
+//Mock data 7 days
+const points7d = [12, 9, 14, 8, 11, 10, 13];
+const tasks7d  = [3, 2, 5, 4, 6, 3, 5];
+
+// optional day activities
+const dayLabels = (() => {
+  const d = new Date();
+  return Array.from({ length: 7 }, (_, i) => {
+    const t = new Date(d);
+    t.setDate(d.getDate() - (6 - i));
+    return t.toLocaleDateString(undefined, { weekday: "short" });
+  });
+})();
+
+
 function fmtMin(m: number) {
   const h = Math.floor(m / 60);
   const mm = m % 60;
@@ -91,12 +106,12 @@ export default function Dashboard() {
         <section className="col-span-12 lg:col-span-7 xl:col-span-8 grid grid-cols-12 gap-6">
           <Card className="col-span-12 md:col-span-6">
             <h3 className="text-lg font-semibold mb-2">Points / Day</h3>
-            <MiniChart caption="Last 7 days (demo)" />
+            <MiniChart caption="Last 7 days" data={points7d} labels={dayLabels} />
           </Card>
 
           <Card className="col-span-12 md:col-span-6">
             <h3 className="text-lg font-semibold mb-2">Tasks / Day</h3>
-            <MiniChart caption="Last 7 days (demo)" stagger />
+            <MiniChart caption="Last 7 days" data={tasks7d} labels={dayLabels} />
           </Card>
 
           <Card className="col-span-12">
@@ -174,21 +189,43 @@ function Stat({ label, value }: { label: string; value: number | string }) {
   );
 }
 
-function MiniChart({ caption, stagger }: { caption: string; stagger?: boolean }) {
-  const data = stagger ? [4,7,6,9,8,11,10] : [6,9,7,8,10,9,12];
-  const max = Math.max(...data);
+function MiniChart({
+  caption,
+  data,
+  labels,
+}: {
+  caption: string;
+  data: number[];
+  labels?: string[];
+}) {
+  const max = Math.max(...data, 1);
   return (
     <div>
+      {/* Satır yüksekliği sabit */}
       <div className="flex items-end gap-2 h-28 mt-2 mb-3">
         {data.map((v, i) => (
-          <div key={i} className="flex-1 bg-[var(--secondary)]/30 rounded-md overflow-hidden">
+          // 👇 kapsayıcıya h-full ekle
+          <div
+            key={i}
+            className="flex-1 h-full bg-[var(--secondary)]/30 rounded-md overflow-hidden"
+          >
             <div
-              className="bg-gradient-to-t from-[var(--primary)] via-[var(--secondary)] to-[var(--accent)] h-full rounded-md"
+              // 👇 burada h-full'i KALDIR (inline height kullanıyoruz)
+              className="bg-gradient-to-t from-[var(--primary)] via-[var(--secondary)] to-[var(--accent)] rounded-md"
               style={{ height: `${(v / max) * 100}%` }}
+              title={labels?.[i] ? `${labels[i]}: ${v}` : String(v)}
             />
           </div>
         ))}
       </div>
+
+      {labels && (
+        <div className="flex justify-between text-[10px] opacity-60 -mt-2 mb-1">
+          {labels.map((l, i) => (
+            <span key={i} className="w-0 flex-1 text-center">{l}</span>
+          ))}
+        </div>
+      )}
       <div className="text-xs opacity-60">{caption}</div>
     </div>
   );
