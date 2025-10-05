@@ -34,7 +34,6 @@ function createMainWindow() {
         // match your Vite dev port
         const devServerUrl = "http://localhost:3000";
         loadReactDev(mainWindow, devServerUrl);
-        mainWindow.webContents.openDevTools({ mode: "detach" }); // optional
     }
     else {
         // point to built Vite output (dist folder at project root)
