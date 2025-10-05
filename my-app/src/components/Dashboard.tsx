@@ -38,6 +38,7 @@ export default function Dashboard() {
 
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Dashboard</h2>
+        <div className="text-sm opacity-70">Welcome back 👋</div>
       </div>
 
       <div className="grid grid-cols-12 gap-6">
