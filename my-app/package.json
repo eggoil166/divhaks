@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.5.0",
-    "@tailwindcss/vite": "^4.1.14",
     "@google/generative-ai": "^0.24.1",
+    "@tailwindcss/vite": "^4.1.14",
     "dotenv": "^17.2.3",
     "framer-motion": "^12.23.22",
     "once": "^1.4.0",
