@@ -136,7 +136,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-lg font-semibold">Gemini Chat</h3>
             </div>
-            <GeminiChat/>
+            <GeminiChat dashboardData={demo}/>
           </Card>
         </section>
       </div>
